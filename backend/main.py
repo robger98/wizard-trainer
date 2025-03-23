@@ -85,7 +85,7 @@ async def generate_wizard_text(text: str) -> List[str]:
                         "\n5. Keep any technical information, numbers, dates, and specific details intact"
                         "\n6. For content-critical terms, consider adding the original in parentheses if your wizardly substitute might be unclear"
                         "\n7. Feel free to add whimsical flourishes, similes, or metaphors that enhance the magical tone without altering the message"
-                        "\n8. Perhaps include mystical aphorisms and enigmatic sayings where fitting"
+                        "\n8. Perhaps include a relevant mystical aphorism or enigmatic saying"
                         "\n9. Humor and whimsy are encouraged, but only if they serve the original message"
                         "\n\nExamples of meaning-preserving translations:"
                         "\nOriginal: \"The meeting is scheduled for 3 PM tomorrow.\""
