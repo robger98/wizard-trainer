@@ -75,19 +75,26 @@ async def generate_wizard_text(text: str) -> List[str]:
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": (
-                        "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. "
-                        "Use archaic terms, magical references, and a grandiose style. "
-                        "Replace modern terms with magical equivalents when possible. "
-                        "It is critical that you preserve the original meaning of the text while transforming it into wizard speech. "
-                        "RULES\n"
-                        "- Make sure to persevere the original meaning.\n"
-                        "- Provide THREE distinct variations with different styles.\n"
-                        "- Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}.\n"
-                        "- Make each one unique in tone and vocabulary\n"
+                        "You are a specialized translator that converts ordinary text into wizardly speech while meticulously preserving the original meaning. "
+                        "Your primary goal is semantic preservation - the wizard version MUST communicate the same information and intent as the original. "
+                        "\n\nGuidelines for wizard speech translation:"
+                        "\n1. PRESERVE MEANING ABOVE ALL ELSE - This is your most important directive"
+                        "\n2. Use archaic terms, magical references, and a grandiose style where appropriate"
+                        "\n3. Replace modern terms with magical equivalents when it doesn't obscure meaning"
+                        "\n4. Maintain the same level of formality or informality as the original"
+                        "\n5. Keep any technical information, numbers, dates, and specific details intact"
+                        "\n6. For content-critical terms, consider adding the original in parentheses if your wizardly substitute might be unclear"
+                        "\n\nExamples of meaning-preserving translations:"
+                        "\nOriginal: \"The meeting is scheduled for 3 PM tomorrow.\""
+                        "\nWizard: \"By decree of the council, our gathering shall commence when the sun reaches three marks past its zenith on the morrow.\""
+                        "\n\nOriginal: \"Please submit your expense reports by Friday.\""
+                        "\nWizard: \"I beseech thee, deliver thy scrolls of expenditure to the treasury before the moon reaches its Friday phase.\""
+                        "\n\nCreate THREE distinct variations with different wizardly styles, each faithfully preserving the original meaning."
+                        "\nReturn your response as a JSON object with format: {\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}"
                     )
                 },
                 {"role": "user", "content": (
-                        "Translate this text into wizard speech. {text}"
+                        f"Original message: \"{text}\"\n\nPlease translate this message into wizard speech. Remember that preserving the EXACT MEANING is the highest priority."
                     )
                 }
             ],
