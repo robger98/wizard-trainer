@@ -6,6 +6,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	server: {
+		port: parseInt(process.env.PORT || '5173'),
+		host: '0.0.0.0',
 		proxy: {
 			// Forward /api requests to the backend when running in development
 			'/api': {
