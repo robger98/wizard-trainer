@@ -1,8 +1,6 @@
 // API store for handling backend communication
 
-const API_BASE_URL = import.meta.env.PROD 
-  ? '/api' 
-  : 'http://localhost:8000/api';
+const API_BASE_URL = process.env.API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:8000/api');
 
 /**
  * Makes an API call to the wizard trainer backend
