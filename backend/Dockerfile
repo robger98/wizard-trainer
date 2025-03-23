@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy requirements first for better caching
 # Since requirements.txt is in the parent directory
-COPY ../requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code (we're already in the backend directory)
