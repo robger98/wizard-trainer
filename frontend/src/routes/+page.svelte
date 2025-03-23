@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Translator from '$lib/components/Translator.svelte';
   import Judge from '$lib/components/Judge.svelte';
   
