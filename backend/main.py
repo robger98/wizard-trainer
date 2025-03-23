@@ -72,7 +72,7 @@ async def generate_wizard_text(text: str) -> List[str]:
     """Use OpenAI to translate text into multiple wizard speech options"""
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": (
                         "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. "
@@ -82,7 +82,7 @@ async def generate_wizard_text(text: str) -> List[str]:
                 },
                 {"role": "user", "content": (
                         "Translate this text into wizard speech. "
-                        "Make sure to persevere the original meaning. "
+                        "IMPORTANT: Make sure to persevere the original meaning. "
                         "Provide THREE distinct variations with different styles. "
                         "Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
                         "Make each one unique in tone and vocabulary: {text}"
