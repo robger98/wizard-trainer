@@ -1,7 +1,7 @@
 // API store for handling backend communication
 // Get the base URL dynamically
 const API_BASE_URL = import.meta.env.API_URL 
-     ? '/api' 
+     ? import.meta.env.API_URL+'/api' 
      : 'http://localhost:8000/api';
 
 /**
