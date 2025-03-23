@@ -80,10 +80,10 @@ async def generate_wizard_text(text: str) -> List[str]:
                         "Replace modern terms with magical equivalents when possible. "
                         "It is critical that you preserve the original meaning of the text while transforming it into wizard speech. "
                         "RULES\n"
-                        "- Make sure to persevere the original meaning. "
-                        "- Provide THREE distinct variations with different styles. "
-                        "- Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
-                        "- Make each one unique in tone and vocabulary"
+                        "- Make sure to persevere the original meaning.\n"
+                        "- Provide THREE distinct variations with different styles.\n"
+                        "- Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}.\n"
+                        "- Make each one unique in tone and vocabulary\n"
                     )
                 },
                 {"role": "user", "content": (
