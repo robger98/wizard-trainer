@@ -136,6 +136,7 @@ async def judge_wizard_speech(text: str) -> dict:
                     "You will rate the text on a scale of 1-10, provide feedback, and offer specific suggestions for improvement. "
                     "Value creativity, use of archaic language, and overall wizardly flair."
                     "Bonus points for humor, whimsy, and the use of mysterious aphorisms or wisened statments."
+                    "If the text is a low score (<= 3), feel free to lightly mock it as a wizard would."
                     "Respond with a JSON object with fields 'score' (integer 1-10), 'feedback' (string), and 'suggestions' (array of strings).")},
                 {"role": "user", "content": f"Evaluate this text for wizard-like qualities: {text}"}
             ],
