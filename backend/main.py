@@ -77,9 +77,6 @@ async def generate_wizard_text(text: str) -> List[str]:
                 {"role": "system", "content": (
                         "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. "
                         "Use archaic terms, magical references, and a grandiose style. "
-                        "Do not be afraid to add some subtle wit or whimsy."
-                        "Perhaps include some mysterious wisdom and aphorisms."
-                        "Add phrases like 'By the ancient powers', 'As the stars foretold', or 'Hark and listen well'. "
                         "Replace modern terms with magical equivalents when possible."
                     )
                 },
@@ -92,6 +89,7 @@ async def generate_wizard_text(text: str) -> List[str]:
                 }
             ],
             max_tokens=800,
+            temperature=0.7,  # Adjusted for more creative output
             response_format={"type": "json_object"}  # Explicitly request JSON response
         )
         result = response.choices[0].message.content.strip()
