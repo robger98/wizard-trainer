@@ -82,7 +82,7 @@ async def generate_wizard_text(text: str) -> List[str]:
                     )
                 },
                 {"role": "user", "content": (
-                        "Translate this text into wizard speech. {text}"
+                        "Translate this text into wizard speech. {text}\n\n"
                         "RULES\n"
                         "-Make sure to persevere the original meaning. "
                         "-Provide THREE distinct variations with different styles. "
