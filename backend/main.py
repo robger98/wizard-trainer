@@ -8,6 +8,7 @@ from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
 
 # Load environment variables with better error handling
+# In Cloud Run, we'll use environment variables directly rather than .env files
 dotenv_path = find_dotenv()
 if dotenv_path:
     load_dotenv(dotenv_path)
@@ -21,11 +22,12 @@ else:
 # Check for API key
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
-    print("ERROR: OpenAI API key not found!")
-    print("Please create a .env file with your OPENAI_API_KEY.")
-    print("Example: OPENAI_API_KEY=your_key_here")
-    print(f"Place it in: {os.path.dirname(os.path.abspath(__file__))} or {os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}")
-    sys.exit(1)
+    # In production environment, we'll print a warning instead of exiting
+    # This allows the container to start even if API key is provided at runtime
+    print("WARNING: OpenAI API key not found!")
+    print("Please provide the OPENAI_API_KEY environment variable.")
+    if not os.getenv("PRODUCTION", False):
+        sys.exit(1)
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -36,10 +38,13 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Add CORS middleware to allow requests from Svelte frontend
+# Add CORS middleware with Cloud Run support
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:4173", "http://localhost:3000", "http://localhost:8000"],  # Added 8000 for API docs
+    # Allow local development and Cloud Run URLs
+    allow_origins=["http://localhost:5173", "http://localhost:4173", "http://localhost:3000", 
+                   "http://localhost:8000", "http://localhost:8080", "https://*.run.app"],
+    allow_origin_regex=r"https://.*-[a-z0-9]+\.run\.app",  # Allow all Cloud Run domains
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -169,7 +174,18 @@ async def judge_text(request: TextRequest):
         suggestions=result["suggestions"]
     )
 
+# Update the root route to include deployment information
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Wizard Trainer API"}
+    return {
+        "message": "Welcome to the Wizard Trainer API",
+        "environment": "Production" if os.getenv("PRODUCTION", False) else "Development",
+        "documentation": "/docs"
+    }
+
+# For Google Cloud Run, which uses PORT environment variable
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
 
