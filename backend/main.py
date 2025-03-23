@@ -72,13 +72,26 @@ async def generate_wizard_text(text: str) -> List[str]:
     """Use OpenAI to translate text into multiple wizard speech options"""
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. Use archaic terms, magical references, and a grandiose style. Add phrases like 'By the ancient powers', 'As the stars foretold', or 'Hark and listen well'. Replace modern terms with magical equivalents when possible."},
-                {"role": "user", "content": f"Translate this text into wizard speech. Provide THREE distinct variations with different styles. Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. Make each one unique in tone and vocabulary: {text}"}
+                {"role": "system", "content": (
+                        "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. "
+                        "Use archaic terms, magical references, and a grandiose style. "
+                        "Do not be afraid to add some subtle wit or whimsy."
+                        "Perhaps include some mysterious wisdom and aphorisms."
+                        "Add phrases like 'By the ancient powers', 'As the stars foretold', or 'Hark and listen well'. "
+                        "Replace modern terms with magical equivalents when possible."
+                    )
+                },
+                {"role": "user", "content": (
+                        "Translate this text into wizard speech. "
+                        "Provide THREE distinct variations with different styles. "
+                        "Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
+                        "Make each one unique in tone and vocabulary: {text}"
+                    )
+                }
             ],
             max_tokens=800,
-            temperature=0.8,
             response_format={"type": "json_object"}  # Explicitly request JSON response
         )
         result = response.choices[0].message.content.strip()
@@ -116,13 +129,18 @@ async def judge_wizard_speech(text: str) -> dict:
     """Use OpenAI to judge how wizard-like the text sounds"""
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a judge evaluating how well someone speaks like a fantasy wizard. You will rate the text on a scale of 1-10, provide brief feedback, and offer specific suggestions for improvement. Respond with a JSON object with fields 'score' (integer 1-10), 'feedback' (string), and 'suggestions' (array of strings)."},
+                {"role": "system", "content": (
+                    "You are a judge evaluating how well someone speaks like a fantasy wizard. "
+                    "You will rate the text on a scale of 1-10, provide feedback, and offer specific suggestions for improvement. "
+                    "Value creativity, use of archaic language, and overall wizardly flair."
+                    "Bonus points for humor, whimsy, and the use of mysterious aphorisms or wisened statments."
+                    "Respond with a JSON object with fields 'score' (integer 1-10), 'feedback' (string), and 'suggestions' (array of strings).")},
                 {"role": "user", "content": f"Evaluate this text for wizard-like qualities: {text}"}
             ],
             max_tokens=500,
-            temperature=0.7
+            temperature=0.25  # Lower temperature for more consistent results
         )
         result_text = response.choices[0].message.content.strip()
         
