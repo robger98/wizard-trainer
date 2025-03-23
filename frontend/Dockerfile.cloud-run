@@ -5,10 +5,10 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-EXPOSE 3000
-
 # Set environment variables for Nginx
 ENV PORT=8080
 ENV API_URL=https://wizard-trainer-backend-1042877629487.us-central1.run.app
+
+EXPOSE 3000
 
 CMD ["node", "build/index.js"]
