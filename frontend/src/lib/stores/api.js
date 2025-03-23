@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 
 // Get the base URL dynamically
 const API_BASE_URL = browser 
-  ? (import.meta.env.PROD 
+  ? (import.meta.env.API_URL 
      ? '/api' 
      : 'http://localhost:8000/api')
   : 'http://localhost:8000/api';
