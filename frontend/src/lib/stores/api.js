@@ -1,6 +1,6 @@
 // API store for handling backend communication
 // Get the base URL dynamically
-const API_BASE_URL = process.env.API_URL + "/api/"
+const API_BASE_URL = "https://wizard-trainer-backend-1042877629487.us-central1.run.app/api/"
 
 /**
  * Makes an API call to the wizard trainer backend
