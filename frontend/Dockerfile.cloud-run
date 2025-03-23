@@ -1,17 +1,14 @@
-FROM node:20-alpine
+FROM node:18-alpine AS build
 
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
+RUN npm install
+RUN npm run build
 
-EXPOSE 5173
+EXPOSE 3000
 
 # Set environment variables for Nginx
 ENV PORT=8080
 ENV API_URL=https://wizard-trainer-backend-1042877629487.us-central1.run.app
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "build/index.js"]
