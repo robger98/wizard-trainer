@@ -82,6 +82,7 @@ async def generate_wizard_text(text: str) -> List[str]:
                 },
                 {"role": "user", "content": (
                         "Translate this text into wizard speech. "
+                        "Make sure to persevere the original meaning. "
                         "Provide THREE distinct variations with different styles. "
                         "Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
                         "Make each one unique in tone and vocabulary: {text}"
