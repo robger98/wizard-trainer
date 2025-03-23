@@ -3,11 +3,12 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY requirements.txt .
+# Since requirements.txt is in the parent directory
+COPY ../requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY backend/ ./backend/
+# Copy the application code (we're already in the backend directory)
+COPY . ./backend/
 
 # Set environment variables
 ENV PORT=8080
