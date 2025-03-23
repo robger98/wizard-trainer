@@ -77,15 +77,17 @@ async def generate_wizard_text(text: str) -> List[str]:
                 {"role": "system", "content": (
                         "You are a translator that converts ordinary text into the speech of a wise, mystical wizard from fantasy literature. "
                         "Use archaic terms, magical references, and a grandiose style. "
-                        "Replace modern terms with magical equivalents when possible."
+                        "Replace modern terms with magical equivalents when possible. "
+                        "It is critical that you preserve the original meaning of the text while transforming it into wizard speech. "
                     )
                 },
                 {"role": "user", "content": (
-                        "Translate this text into wizard speech. "
-                        "IMPORTANT: Make sure to persevere the original meaning. "
-                        "Provide THREE distinct variations with different styles. "
-                        "Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
-                        "Make each one unique in tone and vocabulary: {text}"
+                        "Translate this text into wizard speech. {text}"
+                        "RULES\n"
+                        "-Make sure to persevere the original meaning. "
+                        "-Provide THREE distinct variations with different styles. "
+                        "-Return your response as a JSON object with the format: {{\"translations\": [\"variation1\", \"variation2\", \"variation3\"]}}. "
+                        "-Make each one unique in tone and vocabulary"
                     )
                 }
             ],
